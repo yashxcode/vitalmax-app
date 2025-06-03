@@ -18,30 +18,24 @@ export default function ActivityScreen() {
 
   return (
     <Screen>
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}><View style={styles.header}>
           <Text style={styles.headerTitle}>Activity</Text>
           <SegmentedControl
             segments={timeframes}
             selectedValue={selectedTimeframe}
             onChange={setSelectedTimeframe}
           />
-        </View>
-        <View style={styles.chartContainer}>
+        </View><View style={styles.chartContainer}>
           <ActivityChart timeframe={selectedTimeframe} />
-        </View>
-        <View style={styles.summaryContainer}>
+        </View><View style={styles.summaryContainer}>
           <ActivitySummary />
-        </View>
-        <View style={styles.section}>
+        </View><View style={styles.section}>
           <Text style={styles.sectionTitle}>Today's Goals</Text>
           <ActivityGoals />
-        </View>
-        <View style={styles.section}>
+        </View><View style={styles.section}>
           <Text style={styles.sectionTitle}>Recent Workouts</Text>
           <WorkoutList />
-        </View>
-      </ScrollView>
+        </View></ScrollView>
     </Screen>
   );
 }
