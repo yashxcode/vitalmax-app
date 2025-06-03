@@ -7,6 +7,7 @@ import Animated, {
   withTiming, 
   Easing 
 } from 'react-native-reanimated';
+import { useTheme } from '@/contexts/ThemeContext';
 import Colors from '@/constants/Colors';
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
@@ -55,6 +56,9 @@ const Ring = ({ radius, strokeWidth, color, progress }: RingProps) => {
 };
 
 export default function ActivityRings() {
+  const { colorScheme } = useTheme();
+  const colors = Colors.get(colorScheme);
+  
   const moveProgress = 0.72;
   const exerciseProgress = 0.85;
   const standProgress = 0.67;
@@ -62,29 +66,29 @@ export default function ActivityRings() {
   return (
     <View style={styles.container}>
       <Svg width={220} height={220} viewBox="0 0 100 100">
-        <Circle cx="50%" cy="50%" r="40" stroke="#E0E0E0" strokeWidth="10" fill="transparent" />
-        <Circle cx="50%" cy="50%" r="28" stroke="#E0E0E0" strokeWidth="10" fill="transparent" />
-        <Circle cx="50%" cy="50%" r="16" stroke="#E0E0E0" strokeWidth="10" fill="transparent" />
-        <Ring radius={40} strokeWidth={10} color={Colors.activity} progress={moveProgress} />
-        <Ring radius={28} strokeWidth={10} color={Colors.heart} progress={exerciseProgress} />
-        <Ring radius={16} strokeWidth={10} color={Colors.accent} progress={standProgress} />
+        <Circle cx="50%" cy="50%" r="40" stroke={colors.inactive} strokeWidth="10" fill="transparent" />
+        <Circle cx="50%" cy="50%" r="28" stroke={colors.inactive} strokeWidth="10" fill="transparent" />
+        <Circle cx="50%" cy="50%" r="16" stroke={colors.inactive} strokeWidth="10" fill="transparent" />
+        <Ring radius={40} strokeWidth={10} color={colors.activity} progress={moveProgress} />
+        <Ring radius={28} strokeWidth={10} color={colors.heart} progress={exerciseProgress} />
+        <Ring radius={16} strokeWidth={10} color={colors.accent} progress={standProgress} />
       </Svg>
 
       <View style={styles.statsContainer}>
         <View style={styles.statItem}>
-          <View style={[styles.indicator, { backgroundColor: Colors.activity }]} />
-          <Text style={styles.statLabel}>Move</Text>
-          <Text style={styles.statValue}>426/590 cal</Text>
+          <View style={[styles.indicator, { backgroundColor: colors.activity }]} />
+          <Text style={[styles.statLabel, { color: colors.secondaryText }]}>Move</Text>
+          <Text style={[styles.statValue, { color: colors.text }]}>426/590 cal</Text>
         </View>
         <View style={styles.statItem}>
-          <View style={[styles.indicator, { backgroundColor: Colors.heart }]} />
-          <Text style={styles.statLabel}>Exercise</Text>
-          <Text style={styles.statValue}>25/30 min</Text>
+          <View style={[styles.indicator, { backgroundColor: colors.heart }]} />
+          <Text style={[styles.statLabel, { color: colors.secondaryText }]}>Exercise</Text>
+          <Text style={[styles.statValue, { color: colors.text }]}>25/30 min</Text>
         </View>
         <View style={styles.statItem}>
-          <View style={[styles.indicator, { backgroundColor: Colors.accent }]} />
-          <Text style={styles.statLabel}>Stand</Text>
-          <Text style={styles.statValue}>8/12 hr</Text>
+          <View style={[styles.indicator, { backgroundColor: colors.accent }]} />
+          <Text style={[styles.statLabel, { color: colors.secondaryText }]}>Stand</Text>
+          <Text style={[styles.statValue, { color: colors.text }]}>8/12 hr</Text>
         </View>
       </View>
     </View>
@@ -114,7 +118,6 @@ const styles = StyleSheet.create({
   },
   statLabel: {
     fontSize: 12,
-    color: '#666',
     marginBottom: 2,
   },
   statValue: {

@@ -23,13 +23,27 @@ const lightColors = {
 };
 
 const darkColors = {
-  ...lightColors,
+  primary: '#0A84FF',
+  secondary: '#64D2FF',
+  accent: '#32D74B',
+  success: '#32D74B',
+  warning: '#FF9F0A',
+  error: '#FF453A',
+  activity: '#FF375F',
+  heart: '#FF453A',
+  sleep: '#5E5CE6',
+  water: '#64D2FF',
+  nutrition: '#FF9F0A',
+  weight: '#0A84FF',
   background: '#000000',
   card: '#1C1C1E',
   text: '#FFFFFF',
-  secondaryText: '#8E8E93',
+  secondaryText: '#98989F',
   border: '#38383A',
-  inactive: '#3A3A3C',
+  inactive: '#48484A',
+  account: '#0A84FF',
+  settings: '#98989F',
+  notification: '#FF9F0A',
 };
 
 export type ColorScheme = 'light' | 'dark';
