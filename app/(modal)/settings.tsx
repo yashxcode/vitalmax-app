@@ -1,65 +1,69 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Switch, TouchableOpacity, ScrollView } from 'react-native';
 import Screen from '@/components/layout/Screen';
+import { useTheme } from '@/contexts/ThemeContext';
 import Colors from '@/constants/Colors';
 
 export default function SettingsScreen() {
+  const { colorScheme, toggleColorScheme } = useTheme();
+  const colors = Colors.get(colorScheme);
+  
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
-  const [darkModeEnabled, setDarkModeEnabled] = useState(false);
   const [syncEnabled, setSyncEnabled] = useState(true);
   const [units, setUnits] = useState('metric');
 
   return (
-    <Screen style={styles.container}>
+    <Screen style={[styles.container, { backgroundColor: colors.background }]}>
       <ScrollView>
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>App Settings</Text>
+        <View style={[styles.section, { backgroundColor: colors.card }]}>
+          <Text style={[styles.sectionTitle, { color: colors.secondaryText }]}>App Settings</Text>
           
           <View style={styles.settingItem}>
-            <Text style={styles.settingLabel}>Push Notifications</Text>
+            <Text style={[styles.settingLabel, { color: colors.text }]}>Push Notifications</Text>
             <Switch
               value={notificationsEnabled}
               onValueChange={setNotificationsEnabled}
-              trackColor={{ false: '#eee', true: Colors.primary }}
-              thumbColor={'#fff'}
+              trackColor={{ false: colors.inactive, true: colors.primary }}
+              thumbColor={colors.card}
             />
           </View>
           
           <View style={styles.settingItem}>
-            <Text style={styles.settingLabel}>Dark Mode</Text>
+            <Text style={[styles.settingLabel, { color: colors.text }]}>Dark Mode</Text>
             <Switch
-              value={darkModeEnabled}
-              onValueChange={setDarkModeEnabled}
-              trackColor={{ false: '#eee', true: Colors.primary }}
-              thumbColor={'#fff'}
+              value={colorScheme === 'dark'}
+              onValueChange={toggleColorScheme}
+              trackColor={{ false: colors.inactive, true: colors.primary }}
+              thumbColor={colors.card}
             />
           </View>
 
           <View style={styles.settingItem}>
-            <Text style={styles.settingLabel}>Apple Watch Sync</Text>
+            <Text style={[styles.settingLabel, { color: colors.text }]}>Apple Watch Sync</Text>
             <Switch
               value={syncEnabled}
               onValueChange={setSyncEnabled}
-              trackColor={{ false: '#eee', true: Colors.primary }}
-              thumbColor={'#fff'}
+              trackColor={{ false: colors.inactive, true: colors.primary }}
+              thumbColor={colors.card}
             />
           </View>
         </View>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Units</Text>
+        <View style={[styles.section, { backgroundColor: colors.card }]}>
+          <Text style={[styles.sectionTitle, { color: colors.secondaryText }]}>Units</Text>
           
           <View style={styles.unitsContainer}>
             <TouchableOpacity
               style={[
                 styles.unitButton,
-                units === 'metric' && styles.unitButtonActive
+                { borderColor: colors.border },
+                units === 'metric' && { backgroundColor: colors.primary }
               ]}
               onPress={() => setUnits('metric')}>
               <Text
                 style={[
                   styles.unitButtonText,
-                  units === 'metric' && styles.unitButtonTextActive
+                  { color: units === 'metric' ? colors.card : colors.text }
                 ]}>
                 Metric (kg, cm)
               </Text>
@@ -68,13 +72,14 @@ export default function SettingsScreen() {
             <TouchableOpacity
               style={[
                 styles.unitButton,
-                units === 'imperial' && styles.unitButtonActive
+                { borderColor: colors.border },
+                units === 'imperial' && { backgroundColor: colors.primary }
               ]}
               onPress={() => setUnits('imperial')}>
               <Text
                 style={[
                   styles.unitButtonText,
-                  units === 'imperial' && styles.unitButtonTextActive
+                  { color: units === 'imperial' ? colors.card : colors.text }
                 ]}>
                 Imperial (lb, in)
               </Text>
@@ -82,36 +87,36 @@ export default function SettingsScreen() {
           </View>
         </View>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Health Data</Text>
+        <View style={[styles.section, { backgroundColor: colors.card }]}>
+          <Text style={[styles.sectionTitle, { color: colors.secondaryText }]}>Health Data</Text>
           
           <TouchableOpacity style={styles.actionButton}>
-            <Text style={styles.actionButtonText}>Export Health Data</Text>
+            <Text style={[styles.actionButtonText, { color: colors.primary }]}>Export Health Data</Text>
           </TouchableOpacity>
           
           <TouchableOpacity style={[styles.actionButton, styles.dangerButton]}>
-            <Text style={[styles.actionButtonText, styles.dangerButtonText]}>Clear All Health Data</Text>
+            <Text style={[styles.actionButtonText, { color: colors.error }]}>Clear All Health Data</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Account</Text>
+        <View style={[styles.section, { backgroundColor: colors.card }]}>
+          <Text style={[styles.sectionTitle, { color: colors.secondaryText }]}>Account</Text>
           
           <TouchableOpacity style={styles.actionButton}>
-            <Text style={styles.actionButtonText}>Privacy Settings</Text>
+            <Text style={[styles.actionButtonText, { color: colors.primary }]}>Privacy Settings</Text>
           </TouchableOpacity>
           
           <TouchableOpacity style={styles.actionButton}>
-            <Text style={styles.actionButtonText}>Terms of Service</Text>
+            <Text style={[styles.actionButtonText, { color: colors.primary }]}>Terms of Service</Text>
           </TouchableOpacity>
           
           <TouchableOpacity style={styles.actionButton}>
-            <Text style={styles.actionButtonText}>Sign Out</Text>
+            <Text style={[styles.actionButtonText, { color: colors.primary }]}>Sign Out</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.footer}>
-          <Text style={styles.footerText}>VitalMax v1.0.0</Text>
+          <Text style={[styles.footerText, { color: colors.secondaryText }]}>VitalMax v1.0.0</Text>
         </View>
       </ScrollView>
     </Screen>
@@ -121,10 +126,8 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f8f8',
   },
   section: {
-    backgroundColor: '#fff',
     marginHorizontal: 16,
     marginVertical: 8,
     borderRadius: 12,
@@ -155,20 +158,11 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#ddd',
     borderRadius: 8,
     marginHorizontal: 4,
   },
-  unitButtonActive: {
-    backgroundColor: Colors.primary,
-    borderColor: Colors.primary,
-  },
   unitButtonText: {
-    color: '#666',
     fontWeight: '500',
-  },
-  unitButtonTextActive: {
-    color: '#fff',
   },
   actionButton: {
     paddingVertical: 16,
@@ -177,13 +171,9 @@ const styles = StyleSheet.create({
   },
   actionButtonText: {
     fontSize: 16,
-    color: Colors.primary,
   },
   dangerButton: {
     borderBottomWidth: 0,
-  },
-  dangerButtonText: {
-    color: Colors.error,
   },
   footer: {
     padding: 24,
@@ -191,6 +181,5 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 14,
-    color: '#999',
   },
 });

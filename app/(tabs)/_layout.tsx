@@ -2,26 +2,31 @@ import React from 'react';
 import { Tabs } from 'expo-router';
 import { Chrome as Home, Activity, Heart, Moon, MoveHorizontal as MoreHorizontal } from 'lucide-react-native';
 import { View, StyleSheet } from 'react-native';
+import { useTheme } from '@/contexts/ThemeContext';
 import Colors from '@/constants/Colors';
+import ProfileButton from '@/components/ProfileButton';
 
 export default function TabLayout() {
+  const { colorScheme } = useTheme();
+  const colors = Colors.get(colorScheme);
+
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors.primary,
-        tabBarInactiveTintColor: Colors.inactive,
-        tabBarStyle: styles.tabBar,
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.inactive,
+        tabBarStyle: [styles.tabBar, { backgroundColor: colors.card, borderTopColor: colors.border }],
         tabBarLabelStyle: styles.tabBarLabel,
         headerShown: true,
-        headerStyle: styles.header,
-        headerTitleStyle: styles.headerTitle,
+        headerStyle: [styles.header, { backgroundColor: colors.card }],
+        headerTitleStyle: [styles.headerTitle, { color: colors.text }],
       }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Summary',
+          title: 'VitalMax',
           tabBarIcon: ({ color, size }) => <Home size={size} color={color} />,
-          headerTitle: 'VitalMax',
+          headerRight: () => <ProfileButton />,
         }}
       />
       <Tabs.Screen
@@ -58,9 +63,7 @@ export default function TabLayout() {
 
 const styles = StyleSheet.create({
   tabBar: {
-    backgroundColor: '#fff',
     borderTopWidth: 0.5,
-    borderTopColor: 'rgba(0, 0, 0, 0.1)',
     elevation: 0,
     height: 60,
     paddingBottom: 6,
@@ -70,7 +73,6 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   header: {
-    backgroundColor: '#fff',
     shadowColor: 'transparent',
     elevation: 0,
   },
