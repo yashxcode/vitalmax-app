@@ -1,5 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useColorScheme } from 'react-native';
+import React, { createContext, useContext, useState } from 'react';
 import type { ColorScheme } from '@/constants/Colors';
 
 type ThemeContextType = {
@@ -15,12 +14,7 @@ const ThemeContext = createContext<ThemeContextType>({
 });
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const systemColorScheme = useColorScheme() as ColorScheme;
-  const [colorScheme, setColorScheme] = useState<ColorScheme>(systemColorScheme || 'light');
-
-  useEffect(() => {
-    setColorScheme(systemColorScheme || 'light');
-  }, [systemColorScheme]);
+  const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
 
   const toggleColorScheme = () => {
     setColorScheme(prev => (prev === 'light' ? 'dark' : 'light'));
