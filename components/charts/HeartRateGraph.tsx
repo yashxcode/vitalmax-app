@@ -7,6 +7,7 @@ import Animated, {
   withTiming,
   Easing
 } from 'react-native-reanimated';
+import { useTheme } from '@/contexts/ThemeContext';
 import Colors from '@/constants/Colors';
 
 const AnimatedPath = Animated.createAnimatedComponent(Path);
@@ -23,6 +24,9 @@ interface HeartRateGraphProps {
 }
 
 export default function HeartRateGraph({ timeframe }: HeartRateGraphProps) {
+  const { colorScheme } = useTheme();
+  const colors = Colors.get(colorScheme);
+  
   const data = sampleHeartRateData[timeframe];
   const SVG_WIDTH = 340;
   const SVG_HEIGHT = 180;
@@ -89,7 +93,7 @@ export default function HeartRateGraph({ timeframe }: HeartRateGraphProps) {
             y={SVG_HEIGHT - 5}
             fontSize="10"
             textAnchor="middle"
-            fill="#999">
+            fill={colors.secondaryText}>
             {hour}
           </SvgText>
         );
@@ -105,7 +109,7 @@ export default function HeartRateGraph({ timeframe }: HeartRateGraphProps) {
             y={SVG_HEIGHT - 5}
             fontSize="10"
             textAnchor="middle"
-            fill="#999">
+            fill={colors.secondaryText}>
             {day}
           </SvgText>
         );
@@ -121,7 +125,7 @@ export default function HeartRateGraph({ timeframe }: HeartRateGraphProps) {
             y={SVG_HEIGHT - 5}
             fontSize="10"
             textAnchor="middle"
-            fill="#999">
+            fill={colors.secondaryText}>
             {week}
           </SvgText>
         );
@@ -147,7 +151,7 @@ export default function HeartRateGraph({ timeframe }: HeartRateGraphProps) {
             y1={y}
             x2={SVG_WIDTH - PADDING}
             y2={y}
-            stroke="#eee"
+            stroke={colors.border}
             strokeWidth="1"
           />
           <SvgText
@@ -155,7 +159,7 @@ export default function HeartRateGraph({ timeframe }: HeartRateGraphProps) {
             y={y + 4}
             fontSize="10"
             textAnchor="end"
-            fill="#999">
+            fill={colors.secondaryText}>
             {value}
           </SvgText>
         </G>
@@ -167,7 +171,7 @@ export default function HeartRateGraph({ timeframe }: HeartRateGraphProps) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Heart Rate</Text>
+      <Text style={[styles.title, { color: colors.text }]}>Heart Rate</Text>
       
       <Svg width={SVG_WIDTH} height={SVG_HEIGHT}>
         {/* Y-axis grid lines and labels */}
@@ -180,7 +184,7 @@ export default function HeartRateGraph({ timeframe }: HeartRateGraphProps) {
         <AnimatedPath
           d={path}
           fill="none"
-          stroke={Colors.heart}
+          stroke={colors.heart}
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -191,16 +195,16 @@ export default function HeartRateGraph({ timeframe }: HeartRateGraphProps) {
       
       <View style={styles.statsRow}>
         <View style={styles.stat}>
-          <Text style={styles.statLabel}>Average</Text>
-          <Text style={styles.statValue}>72 bpm</Text>
+          <Text style={[styles.statLabel, { color: colors.secondaryText }]}>Average</Text>
+          <Text style={[styles.statValue, { color: colors.heart }]}>72 bpm</Text>
         </View>
         <View style={styles.stat}>
-          <Text style={styles.statLabel}>Min</Text>
-          <Text style={styles.statValue}>64 bpm</Text>
+          <Text style={[styles.statLabel, { color: colors.secondaryText }]}>Min</Text>
+          <Text style={[styles.statValue, { color: colors.heart }]}>64 bpm</Text>
         </View>
         <View style={styles.stat}>
-          <Text style={styles.statLabel}>Max</Text>
-          <Text style={styles.statValue}>110 bpm</Text>
+          <Text style={[styles.statLabel, { color: colors.secondaryText }]}>Max</Text>
+          <Text style={[styles.statValue, { color: colors.heart }]}>110 bpm</Text>
         </View>
       </View>
     </View>
@@ -227,12 +231,10 @@ const styles = StyleSheet.create({
   },
   statLabel: {
     fontSize: 12,
-    color: '#999',
     marginBottom: 4,
   },
   statValue: {
     fontSize: 16,
     fontWeight: '600',
-    color: Colors.heart,
   },
 });

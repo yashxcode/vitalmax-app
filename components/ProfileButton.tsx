@@ -13,7 +13,7 @@ export default function ProfileButton() {
       style={[styles.container, { borderColor: colors.border }]}
       onPress={() => router.push('/(modal)/settings')}>
       <Image
-        source={{ uri: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=600' }}
+        source={{ uri: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=600' }}
         style={styles.image}
       />
     </TouchableOpacity>

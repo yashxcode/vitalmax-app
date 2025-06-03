@@ -7,6 +7,7 @@ import Animated, {
   withTiming,
   Easing,
 } from 'react-native-reanimated';
+import { useTheme } from '@/contexts/ThemeContext';
 import Colors from '@/constants/Colors';
 
 const AnimatedPath = Animated.createAnimatedComponent(Path);
@@ -23,6 +24,9 @@ interface ActivityChartProps {
 }
 
 export default function ActivityChart({ timeframe }: ActivityChartProps) {
+  const { colorScheme } = useTheme();
+  const colors = Colors.get(colorScheme);
+  
   // Get appropriate data based on timeframe
   const data = sampleActivityData[timeframe as keyof typeof sampleActivityData] || sampleActivityData.day;
   
@@ -104,7 +108,7 @@ export default function ActivityChart({ timeframe }: ActivityChartProps) {
           y={SVG_HEIGHT - 5}
           fontSize="10"
           textAnchor="middle"
-          fill="#999">
+          fill={colors.secondaryText}>
           {label}
         </SvgText>
       );
@@ -134,7 +138,7 @@ export default function ActivityChart({ timeframe }: ActivityChartProps) {
             y1={y}
             x2={SVG_WIDTH - PADDING}
             y2={y}
-            stroke="#eee"
+            stroke={colors.border}
             strokeWidth="1"
           />
           <SvgText
@@ -142,7 +146,7 @@ export default function ActivityChart({ timeframe }: ActivityChartProps) {
             y={y + 4}
             fontSize="10"
             textAnchor="end"
-            fill="#999">
+            fill={colors.secondaryText}>
             {formattedValue}
           </SvgText>
         </G>
@@ -164,9 +168,9 @@ export default function ActivityChart({ timeframe }: ActivityChartProps) {
         {/* Activity line and area fill */}
         <AnimatedPath
           d={linePath}
-          fill={Colors.activity}
+          fill={colors.activity}
           fillOpacity={0.2}
-          stroke={Colors.activity}
+          stroke={colors.activity}
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
