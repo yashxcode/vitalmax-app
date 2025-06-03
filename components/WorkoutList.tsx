@@ -4,7 +4,6 @@ import { ChevronRight, Clock, Timer, Flame } from 'lucide-react-native';
 import Colors from '@/constants/Colors';
 
 export default function WorkoutList() {
-  // Sample workout data
   const workouts = [
     {
       id: 1,
@@ -45,35 +44,29 @@ export default function WorkoutList() {
               style={styles.workoutImage}
             />
           </View>
-          
           <View style={styles.workoutDetails}>
             <Text style={styles.workoutType}>{workout.type}</Text>
             <Text style={styles.workoutDate}>{workout.date}</Text>
-            
             <View style={styles.workoutStats}>
               <View style={styles.statItem}>
                 <Clock size={14} color="#999" />
                 <Text style={styles.statText}>{workout.duration}</Text>
               </View>
-              
               {workout.distance && (
                 <View style={styles.statItem}>
                   <Timer size={14} color="#999" />
                   <Text style={styles.statText}>{workout.distance}</Text>
                 </View>
               )}
-              
               <View style={styles.statItem}>
                 <Flame size={14} color="#999" />
                 <Text style={styles.statText}>{workout.calories} cal</Text>
               </View>
             </View>
           </View>
-          
           <ChevronRight size={20} color="#ccc" />
         </TouchableOpacity>
       ))}
-      
       <TouchableOpacity style={styles.viewAllButton}>
         <Text style={styles.viewAllText}>View All Workouts</Text>
       </TouchableOpacity>

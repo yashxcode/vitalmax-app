@@ -41,9 +41,17 @@ export default function ActivityGoals() {
 
         return (
           <View key={index} style={styles.goalItem}>
-            <View style={styles.goalHeader}><Text style={styles.goalName}>{goal.name}</Text><Text style={styles.goalPercentage}>{percentage}%</Text></View>
-            <View style={styles.progressBackground}><Animated.View style={[styles.progressFill, { backgroundColor: goal.color }, progressStyle]} /></View>
-            <View style={styles.goalFooter}><Text style={styles.goalCurrent}>{goal.current}</Text><Text style={styles.goalTarget}>{goal.target}</Text></View>
+            <View style={styles.goalHeader}>
+              <Text style={styles.goalName}>{goal.name}</Text>
+              <Text style={styles.goalPercentage}>{percentage}%</Text>
+            </View>
+            <View style={styles.progressBackground}>
+              <Animated.View style={[styles.progressFill, { backgroundColor: goal.color }, progressStyle]} />
+            </View>
+            <View style={styles.goalFooter}>
+              <Text style={styles.goalCurrent}>{goal.current}</Text>
+              <Text style={styles.goalTarget}>{goal.target}</Text>
+            </View>
           </View>
         );
       })}

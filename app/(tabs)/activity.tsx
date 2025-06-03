@@ -27,20 +27,16 @@ export default function ActivityScreen() {
             onChange={setSelectedTimeframe}
           />
         </View>
-
         <View style={styles.chartContainer}>
           <ActivityChart timeframe={selectedTimeframe} />
         </View>
-
         <View style={styles.summaryContainer}>
           <ActivitySummary />
         </View>
-
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Today's Goals</Text>
           <ActivityGoals />
         </View>
-
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Recent Workouts</Text>
           <WorkoutList />

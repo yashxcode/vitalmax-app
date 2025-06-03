@@ -36,7 +36,10 @@ export default function ActivitySummary() {
       <View style={styles.grid}>
         {metrics.map((metric, index) => (
           <View key={index} style={styles.metricItem}>
-            <View style={styles.metricHeader}>{metric.icon}<Text style={styles.metricLabel}>{metric.label}</Text></View>
+            <View style={styles.metricHeader}>
+              {metric.icon}
+              <Text style={styles.metricLabel}>{metric.label}</Text>
+            </View>
             <Text style={styles.metricValue}>{metric.value}</Text>
             <Text style={styles.metricComparison}>{metric.comparison}</Text>
           </View>
