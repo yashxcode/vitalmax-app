@@ -1,4 +1,4 @@
-# VitalMax
+# VitalMax App
 
 VitalMax is a comprehensive health and fitness tracking application built with Expo and React Native. It allows users to monitor various health metrics such as activity, heart rate, and sleep, providing insights and helping them achieve their health goals. The app features a clean, modern UI with support for both light and dark modes, and a robust navigation structure.
 
