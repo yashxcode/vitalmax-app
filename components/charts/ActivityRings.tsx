@@ -48,9 +48,7 @@ const Ring = ({ radius, strokeWidth, color, progress }: RingProps) => {
       strokeLinecap="round"
       strokeDasharray={circumference}
       animatedProps={animatedProps}
-      rotation="-90"
-      originX={50}
-      originY={50}
+      transform="rotate(-90 50 50)"
     />
   );
 };
